@@ -1,0 +1,20 @@
+.create-purchase-modal .ant-card-body .ant-table-row .ant-table-cell .ant-select,
+.create-purchase-modal .ant-card-body .ant-table-row .ant-table-cell .ant-input {
+    height: 25px !important;
+}
+
+.ant-form .ant-form-item label {
+    font-weight: 700;
+}
+
+.ant-form .ant-form-item {
+    margin-bottom: 10px;
+}
+
+.create-purchase-modal .create-request-table-detail .ant-table.ant-table-small .ant-table-tbody>tr>td {
+    padding: 5px 10px;
+}
+
+.create-purchase-modal .ant-card-body {
+    padding: 15px !important;
+}
