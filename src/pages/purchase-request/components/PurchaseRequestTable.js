@@ -191,7 +191,7 @@ const PurchaseRequestTable = () => {
                     total: dataListDetailRequest.length, // Tổng số dòng
                     showSizeChanger: true,
                 }}
-                rowKey={(record) => record.key}
+                rowKey={(record) => record.id}
                 onChange={handleTableChange}
                 scroll={{
                     x: 1600,

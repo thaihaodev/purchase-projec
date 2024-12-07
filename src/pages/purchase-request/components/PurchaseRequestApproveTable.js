@@ -3,17 +3,32 @@ import {
     CloseOutlined,
     CheckOutlined
 } from "@ant-design/icons";
-import { Button, Card, Flex, Table, Tooltip, Popconfirm } from 'antd';
+import { Button, Card, Flex, Table, Tooltip, Popconfirm, Modal } from 'antd';
 import dayjs from "dayjs";
 import { useState } from "react";
 import { dataListDetailRequest } from "../../data/fakeData";
 import { roleUser } from "../../data/fakeRole"
+import UpdatePurchaseRequestModal from "./UpdatePurchaseRequestModal";
+import WatchPurchaseRequestModal from "./WatchPurchaseRequestModal";
 
-
-const PurchaseRequestApproveTable = () => {
+const PurchaseRequestApproveTable = ({ onSelectedRowsChange }) => {
     const [loading, setLoading] = useState(true);
     const [selectedRows, setSelectedRows] = useState([]);
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedRecord, setSelectedRecord] = useState(null);
+
+    //Hàm mở modal
+    const handleViewUpdateRequest = (record) => {
+        setSelectedRecord(record); // Lưu record
+        setModalVisible(true); // Hiển thị modal
+    };
+
+    // Hàm đóng modal
+    const handleCloseModal = () => {
+        setModalVisible(false);
+        setSelectedRecord(null); // Xóa record khi đóng modal
+    };
 
     const [tableParams, setTableParams] = useState({
         pagination: {
@@ -21,10 +36,17 @@ const PurchaseRequestApproveTable = () => {
             pageSize: 100,
         },
     });
-    const onSelectChange = (newSelectedRowKeys, selectedRows) => {
-        setSelectedRows(selectedRows);
+
+    const onSelectChange = (newSelectedRowKeys, newSelectedRows) => {
+        setSelectedRows(newSelectedRows);
         setSelectedRowKeys(newSelectedRowKeys);
+
+        // Gọi callback để thông báo lên parent component
+        if (onSelectedRowsChange) {
+            onSelectedRowsChange(newSelectedRows);
+        }
     };
+
     const rowSelection = {
         selectedRowKeys,
         onChange: onSelectChange,
@@ -56,7 +78,7 @@ const PurchaseRequestApproveTable = () => {
             key: "operation",
             fixed: "left",
             width: roleUser.roleId === 1 ? 100 : 50,
-            render: (val) => {
+            render: (val, record) => {
                 return (
                     <Flex horizontal="true" gap="small" justify='center'>
                         <>
@@ -64,8 +86,8 @@ const PurchaseRequestApproveTable = () => {
                                 <Button
                                     size="small"
                                     icon={<EyeOutlined />}
-                                //Khi Role là 1 thì chỉ xem YC và duyệt hoặc từ chối, còn khác 1 thì có thể sửa Yêu Cầu
-                                // onClick={() => showModalForm("Edit", val)}
+                                    //Khi Role là 1 thì chỉ xem YC và duyệt hoặc từ chối, còn khác 1 thì có thể sửa Yêu Cầu
+                                    onClick={() => handleViewUpdateRequest(record)}
                                 ></Button>
                             </Tooltip>
                             {
@@ -103,14 +125,14 @@ const PurchaseRequestApproveTable = () => {
         },
         {
             title: 'User Request',
-            dataIndex: 'user',
-            key: 'user',
+            dataIndex: 'userRequest',
+            key: 'userRequest',
             width: 150,
         },
         {
             title: 'Title Request',
-            dataIndex: 'requestTitle',
-            key: 'requestTitle',
+            dataIndex: 'titleRequest',
+            key: 'titleRequest',
             width: 300,
             ellipsis: true,
         },
@@ -189,7 +211,7 @@ const PurchaseRequestApproveTable = () => {
                     total: dataListDetailRequest.length, // Tổng số dòng
                     showSizeChanger: true,
                 }}
-                rowKey={(record) => record.key}
+                rowKey={(record) => record.id}
                 onChange={handleTableChange}
                 scroll={{
                     x: 1800,
@@ -197,6 +219,26 @@ const PurchaseRequestApproveTable = () => {
                     scrollToFirstRowOnChange: true,
                 }}
             />
+            <Modal
+                title={roleUser.roleId === 1 ? "Danh Sách Yêu Cầu Mua Hàng" : "Cập Nhật Yêu Cầu"}
+                style={{ top: 20 }}
+                open={modalVisible}
+                onCancel={handleCloseModal}
+                footer={null}
+                width={1400}
+            >
+                {roleUser.roleId === 1 ? (
+                    <WatchPurchaseRequestModal
+                        dataItem={selectedRecord}
+                        onClose={handleCloseModal}
+                    />
+                ) : (
+                    <UpdatePurchaseRequestModal
+                        dataItem={selectedRecord}
+                        onClose={handleCloseModal}
+                    />
+                )}
+            </Modal>
         </>
     );
 }

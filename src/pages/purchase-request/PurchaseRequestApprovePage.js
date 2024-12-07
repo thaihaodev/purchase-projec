@@ -3,7 +3,7 @@ import "antd/dist/reset.css";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import PurchaseRequestApproveTable from "./components/PurchaseRequestApproveTable"
-import CreateQuoteRequestModal from "./components/CreateQuoteRequestModal";
+import CreateQuoteRequestModal from "../quote-request/components/CreateQuoteRequestModal";
 import { roleUser } from "../data/fakeRole";
 
 
@@ -15,6 +15,8 @@ const PurchaseRequestApprovePage = () => {
     const [fromDate, setFromDate] = useState(now.format('YYYY-MM-DD'));
     const [toDate, setToDate] = useState(now.format('YYYY-MM-DD'));
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedRows, setSelectedRows] = useState([]);
+
     const [modalVisibility, setModalVisibility] = useState({
         createPurchaseRequestModal: false,
         createQuoteRequestModal: false,
@@ -68,7 +70,7 @@ const PurchaseRequestApprovePage = () => {
                 </Col>
             </Row>
             <div className="main-content">
-                <PurchaseRequestApproveTable />
+                <PurchaseRequestApproveTable onSelectedRowsChange={(rows) => setSelectedRows(rows)} />
             </div>
         </div>
         <Modal
@@ -81,7 +83,7 @@ const PurchaseRequestApprovePage = () => {
             footer={null}
             width={1400}
         >
-            <CreateQuoteRequestModal onClose={() => toggleModal("main", false)} />
+            <CreateQuoteRequestModal listRequest={selectedRows} />
         </Modal>
     </>;
 }

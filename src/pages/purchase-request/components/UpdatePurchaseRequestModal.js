@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip } from "antd";
+import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload } from "antd";
 import dayjs from "dayjs";
-import { CloseOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusCircleOutlined, UploadOutlined } from "@ant-design/icons";
 import BudgetDetailTable from "./BudgetDetailTable";
+import { formatNameFileUpload } from "../../../utils/helpers"
 import "../style.css"
 import { v4 as uuidv4 } from 'uuid';
 
-const { TextArea } = Input;
 const { Option } = Select;
 
 const UpdatePurchaseRequestModal = (props) => {
@@ -14,15 +14,14 @@ const UpdatePurchaseRequestModal = (props) => {
     const [form] = Form.useForm();
     const [month, setMonth] = useState("");
     const [monthOptions, setMonthOptions] = useState([]);
-    console.log(dataItem, 'dataItem');
     const [reason, setReason] = useState("");
     const [listDetailRequest, setListDetailRequest] = useState([]);
-    const [files, setFiles] = useState([]);
     const [chains, setChains] = useState([]);
     const [depts, setDepts] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [accountsCus, setAccountsCus] = useState([]);
     const [errors, setErrors] = useState({});
+    const [fileList, setFileList] = useState([]);
 
     const Validate = {
         TitleRequest: [
@@ -367,8 +366,12 @@ const UpdatePurchaseRequestModal = (props) => {
         setReason("");
         setMonth(dayjs().format("YYYYMM")); // Reset tháng về giá trị mặc định
         setListDetailRequest([]); // Clear danh sách chi tiết
-        setFiles([]);
+        setFileList([]);
         setErrors({});
+    };
+
+    const handleUploadChange = ({ fileList }) => {
+        setFileList(fileList);
     };
 
     // Xử lý gửi yêu cầu
@@ -395,7 +398,7 @@ const UpdatePurchaseRequestModal = (props) => {
             // Lấy dữ liệu từ form
             const { titleRequest, typeRequest, monthRequest, reason, note } = formValues;
 
-            // Lấy dữ liệu từ bảng
+            const listUpload = fileList.map(file => file.originFileObj);
 
             const payload = await {
                 ...formValues,
@@ -404,6 +407,7 @@ const UpdatePurchaseRequestModal = (props) => {
                 //Này phải lấy người đăng nhập
                 userRequest: "Hảo Đẹp Trai",
                 id: uuidv4(),
+                listUpload: listUpload,
                 listDetailRequests: listDetailRequest.map((detail, index) => ({
                     ...detail,
                 })),
@@ -442,8 +446,6 @@ const UpdatePurchaseRequestModal = (props) => {
                             </Select>
                         </Form.Item>
                     </Col>
-                </Row>
-                <Row gutter={16}>
                     <Col span={12}>
                         <Form.Item label="Y/C Mua cho tháng:" name="monthRequest">
                             <Select
@@ -464,8 +466,6 @@ const UpdatePurchaseRequestModal = (props) => {
                             <Input />
                         </Form.Item>
                     </Col>
-                </Row>
-                <Row>
                     <Col span={24}>
                         <Form.Item
                             label="Ghi chú/thông tin đến bộ phận thu mua"
@@ -474,6 +474,53 @@ const UpdatePurchaseRequestModal = (props) => {
                             <Input.TextArea
                                 rows={2}
                             />
+                        </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                        <Form.Item label="Upload File Đính Kèm">
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                {/* Nút Upload */}
+                                <Upload
+                                    onChange={handleUploadChange}
+                                    fileList={fileList}
+                                    beforeUpload={() => false} // Không tự động upload
+                                    accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                    multiple
+                                    showUploadList={false} // Ẩn danh sách mặc định của Ant Design
+                                >
+                                    <Button icon={<UploadOutlined />}>Upload</Button>
+                                </Upload>
+                                {/* Danh sách file */}
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        alignItems: "center",
+                                        gap: "10px",
+                                    }}
+                                >
+                                    {fileList.map((file, index) => (
+                                        <Tooltip title={file.name} key={file.uid}>
+                                            <div
+                                                key={index}
+                                                className="file-upload-style"
+                                            >
+                                                <span className="file-name-upload">{formatNameFileUpload(file.name)}</span>
+                                                <Button
+                                                    type="text"
+                                                    size="small"
+                                                    onClick={() => {
+                                                        const newFileList = fileList.filter((_, idx) => idx !== index);
+                                                        setFileList(newFileList);
+                                                    }}
+                                                >
+                                                    <CloseOutlined />
+                                                </Button>
+                                            </div>
+                                        </Tooltip>
+                                    ))}
+                                </div>
+                            </div>
                         </Form.Item>
                     </Col>
                 </Row>
@@ -486,7 +533,7 @@ const UpdatePurchaseRequestModal = (props) => {
                 dataSource={listDetailRequest}
                 columns={columns}
                 pagination={false}
-                rowKey={(record, index) => record.id}
+                rowKey={(record) => record?.id}
                 bordered
                 size="small"
                 scroll={{
@@ -498,11 +545,17 @@ const UpdatePurchaseRequestModal = (props) => {
             <Button type="primary" size="small" onClick={handleAddRow} style={{ margin: "8px 0 16px 0" }}>
                 <PlusCircleOutlined /> Append
             </Button>
-            <Collapse size="small" style={{ marginBottom: "16px" }}>
-                <Collapse.Panel header="Chi tiết ngân sách" key="1">
-                    <BudgetDetailTable />
-                </Collapse.Panel>
-            </Collapse>
+            <Collapse
+                size="small"
+                style={{ marginBottom: "16px" }}
+                items={[
+                    {
+                        key: "1",
+                        label: "Chi tiết ngân sách",
+                        children: <BudgetDetailTable />,
+                    },
+                ]}
+            />
             <Row gutter={16}>
                 <Col span={24}>
                     <Button type="primary" style={{ float: 'right' }} onClick={handleUpdate}>
