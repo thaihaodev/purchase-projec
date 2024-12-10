@@ -8,17 +8,12 @@ import { v4 as uuidv4 } from 'uuid';
 const { Option } = Select;
 
 const CreateQuoteRequestModal = (props) => {
-    const { listRequest } = props;
+    const { listRequest, handleClearRows } = props;
     const [form] = Form.useForm();
     const [month, setMonth] = useState("");
     const [monthOptions, setMonthOptions] = useState([]);
     const [reason, setReason] = useState("");
     const [listDetailQuote, setListDetailQuote] = useState([]);
-    const [chains, setChains] = useState([]);
-    const [depts, setDepts] = useState([]);
-    const [customers, setCustomers] = useState([]);
-    const [accountsCus, setAccountsCus] = useState([]);
-    const [errors, setErrors] = useState({});
     const [fileList, setFileList] = useState([]);
     const [merge, setMerge] = useState(false);
 
@@ -49,7 +44,6 @@ const CreateQuoteRequestModal = (props) => {
             setListDetailQuote(allDetails);
         }
     }, [listRequest]);
-    console.log(listDetailQuote, 'listDetailQuote');
 
     const generateMonthsForCurrentYear = () => {
         const currentYear = dayjs().year();
@@ -168,7 +162,6 @@ const CreateQuoteRequestModal = (props) => {
         setMonth(dayjs().format("YYYYMM")); // Reset tháng về giá trị mặc định
         setListDetailQuote([]); // Clear danh sách chi tiết
         setFileList([]);
-        setErrors({});
     };
 
     const handleUploadChange = ({ fileList }) => {
@@ -179,23 +172,6 @@ const CreateQuoteRequestModal = (props) => {
     const handleSubmit = async () => {
         try {
             const formValues = await form.validateFields();
-            const newErrors = {};
-
-            listDetailQuote.forEach((record, index) => {
-                newErrors[index] = {};
-                if (!record.chain) newErrors[index].chain = "Không được để trống";
-                if (!record.dept) newErrors[index].dept = "Không được để trống";
-                if (!record.costName) newErrors[index].costName = "Không được để trống";
-                if (!record.customer) newErrors[index].customer = "Không được để trống";
-                if (!record.account) newErrors[index].account = "Không được để trống";
-            });
-            setErrors(newErrors);
-
-            const hasErrors = Object.values(newErrors).some(error => Object.keys(error).length > 0);
-            if (hasErrors) {
-                message.error("Vui lòng hoàn thành các trường bắt buộc!");
-                return;
-            }
             // Lấy dữ liệu từ form
             const { titleQuote, monthQuote, note, supplier } = formValues;
 
@@ -211,6 +187,7 @@ const CreateQuoteRequestModal = (props) => {
             console.log("Payload gửi đi:", payload);
             message.success("Gửi yêu cầu thành công!");
             handleReset();
+            handleClearRows();
         }
         catch (error) {
             message.error("Vui lòng hoàn thành các trường bắt buộc trong form!");
