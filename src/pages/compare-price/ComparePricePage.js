@@ -2,13 +2,13 @@ import { Button, Col, DatePicker, message, Row, Select, Modal } from "antd";
 import "antd/dist/reset.css";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import QuoteRequestTable from "./components/QuoteRequestTable"
+import ComparePriceTable from "./components/ComparePriceTable"
 // import CreatePurchaseRequestModal from "./components/CreatePurchaseRequestModal";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-const QuoteRequestPage = () => {
+const ComparePricePage = () => {
     const now = dayjs();
     const [fromDate, setFromDate] = useState(now.format('YYYY-MM-DD'));
     const [toDate, setToDate] = useState(now.format('YYYY-MM-DD'));
@@ -54,11 +54,11 @@ const QuoteRequestPage = () => {
                 </Col>
             </Row>
             <div className="main-content">
-                <QuoteRequestTable />
+                <ComparePriceTable />
             </div>
         </div>
         {/* <Modal
-            title="Yêu Cầu Mua Hàng"
+            title="So Sánh Giá"
             style={{
                 top: 20,
             }}
@@ -72,4 +72,4 @@ const QuoteRequestPage = () => {
     </>;
 }
 
-export default QuoteRequestPage;
+export default ComparePricePage;

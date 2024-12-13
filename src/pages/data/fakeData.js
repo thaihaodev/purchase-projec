@@ -1,196 +1,3 @@
-// export const dataTableRequest = [
-//     {
-//         key: "1",
-//         id: "20241126150311",
-//         user: "THUAN.VU",
-//         requestTitle: "MUA VỎ XE NỘI BỘ",
-//         status: "Waiting Approve",
-//         progress: 100,
-//         phone: "A Thuận 0903.023.985 VT",
-//         mail: "",
-//         payment: "Chuyển khoản",
-//         attachedFiles: "",
-//         description: "Phòng mua trình ncc hiện hữu supplier 01(Ngọc lốp oto) vì: Hạng mục thực hiện trước đó",
-//         ceoCs: "Approve 1",
-//         generalM: "",
-//         manager: "",
-//         generaManager: "",
-//         createDate: "2024-11-28T16:10:24.7846328",
-//         dateSendManager: "2024-11-28T16:10:24.7846328",
-//         dateGeneralManagerApprove: "",
-//         dateSendSupplier: "",
-//         dateDelivery: "",
-//         dateDistribution: "",
-//         invoiceNumber: "",
-//         listRequest: [
-//             {
-//                 key: "1",
-//                 account: "THAI BINH",
-//                 no: 1,
-//                 item: "LỐP XE 1 NGỌC LỐP Ô TÔ HONDAAAAAAA",
-//                 qty: 54,
-//                 brand: "",
-//                 size: "VỎ",
-//                 unit: "Bánh",
-//                 supplier1: "NGỌC LỐP Ô TÔ",
-//                 price1: 6691666.667,
-//                 deal1: 6365740.741,
-//                 tax1: 8,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//             {
-//                 key: "2",
-//                 account: "THAI BINH",
-//                 no: 2,
-//                 item: "LỐP XE 2 NGỌC LỐP Ô TÔ HONDAAAAAAA",
-//                 qty: 30,
-//                 brand: "",
-//                 size: "VỎ",
-//                 unit: "Bánh",
-//                 supplier1: "NGỌC LỐP Ô TÔ",
-//                 price1: 7364814.815,
-//                 deal1: 6994444.444,
-//                 tax1: 8,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//             {
-//                 key: "3",
-//                 account: "THAI BINH",
-//                 no: 3,
-//                 item: "LỐP XE 3 NGỌC LỐP Ô TÔ HONDAAAAAAA",
-//                 qty: 30,
-//                 brand: "",
-//                 size: "VỎ",
-//                 unit: "Bánh",
-//                 supplier1: "NGỌC LỐP Ô TÔ",
-//                 price1: 3951851.852,
-//                 deal1: 3766666.667,
-//                 tax1: 8,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//         ]
-//     },
-//     {
-//         key: "2",
-//         id: "20241125105423",
-//         user: "HIEU.LE",
-//         requestTitle: "VPP - CCDC THÁNG 12/2024 (KHO 5: KHO + VSCX)",
-//         status: "Sourcing",
-//         progress: 30,
-//         phone: "0374 510 570 HUỆ KHO 5        ",
-//         mail: "",
-//         payment: "Chuyển khoản",
-//         attachedFiles: "",
-//         description: "P.Mua trình giá vpp-ccdc định kỳ hằng tháng",
-//         ceoCs: "",
-//         generalM: "",
-//         manager: "",
-//         generaManager: "",
-//         createDate: "2024-11-28T16:10:24.7846328",
-//         dateSendManager: "2024-11-28T16:10:24.7846328",
-//         dateGeneralManagerApprove: "",
-//         dateSendSupplier: "",
-//         dateDelivery: "",
-//         dateDistribution: "",
-//         invoiceNumber: "",
-//         listRequest: [
-//             {
-//                 key: "1",
-//                 account: "KHO 5_ALL_ACCOUNT",
-//                 no: 1,
-//                 item: "Bịch đựng seal",
-//                 qty: 2,
-//                 brand: "",
-//                 size: "25*30 cm",
-//                 unit: "Kg",
-//                 supplier1: "CỬA HÀNG LIỄU",
-//                 price1: 70000,
-//                 deal1: 70000,
-//                 tax1: 0,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//             {
-//                 key: "2",
-//                 account: "KHO 5_ALL_ACCOUNT",
-//                 no: 2,
-//                 item: "Bao tay cao su HQ",
-//                 qty: 2,
-//                 brand: "",
-//                 size: "",
-//                 unit: "Đôi",
-//                 supplier1: "CÔNG TY TOÀN TRẺ",
-//                 price1: 25000,
-//                 deal1: 19500,
-//                 tax1: 8,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//         ]
-//     },
-//     {
-//         key: "3",
-//         id: "20241125105048",
-//         user: "HA.LE",
-//         requestTitle: "VPP THÁNG 12/2024 WH2-8",
-//         status: "Waiting Approve",
-//         progress: 50,
-//         phone: " 0357 374 390 HỒNG HÀ ",
-//         mail: "",
-//         payment: "Chuyển khoản",
-//         attachedFiles: "",
-//         description: "P.Mua trình giá vpp-ccdc định kỳ hằng tháng",
-//         ceoCs: "Approve 1",
-//         generalM: "",
-//         manager: "",
-//         generaManager: "",
-//         createDate: "2024-11-28T16:10:24.7846328",
-//         dateSendManager: "2024-11-28T16:10:24.7846328",
-//         dateGeneralManagerApprove: "",
-//         dateSendSupplier: "",
-//         dateDelivery: "",
-//         dateDistribution: "",
-//         invoiceNumber: "",
-//         listRequest: [
-//             {
-//                 key: "1",
-//                 account: "MSK_COLUMBIA",
-//                 no: 1,
-//                 item: "bấm kim số 10 plus",
-//                 qty: 15,
-//                 brand: "",
-//                 size: "",
-//                 unit: "Cái",
-//                 supplier1: "CÔNG TY TOÀN TRẺ",
-//                 price1: 24000,
-//                 deal1: 24000,
-//                 tax1: 10,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//             {
-//                 key: "2",
-//                 account: "WAIFAIR",
-//                 no: 2,
-//                 item: "Băng keo trong 4,8cm hàng đặc biệt TBS",
-//                 qty: 35,
-//                 brand: "",
-//                 size: "",
-//                 unit: "Cuộn",
-//                 supplier1: "CÔNG TY TOÀN TRẺ",
-//                 price1: 13000,
-//                 deal1: 12000,
-//                 tax1: 8,
-//                 priceUnit: "vnđ",
-//                 link: ""
-//             },
-//         ]
-//     },
-// ];
-
 export const dataListDetailRequest = [
     {
         id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac7",
@@ -278,3 +85,114 @@ export const dataListDetailRequest = [
         ]
     }
 ];
+
+export const dataListQuoteRequest = [
+    {
+        id: "c7a4afdf-28dd-4889-9e4d-bf2a54a99ac7",
+        titleQuote: "Yêu cầu báo giá 1",
+        createTime: "2024-12-02T17:31:09.2704834",
+        status: "Waiting Product Quote",
+        listItems: [
+            {
+                id: "c7a4afdf-28dd-1889-9e4d-bf2a54a99ac7",
+                itemId: "IT1",
+                item: "Bút",
+                unit: "Cây",
+                size: "",
+                qty: "20"
+            },
+            {
+                id: "c7a4afdf-38dd-4889-9e4d-bf2a54a99ac7",
+                itemId: "IT2",
+                item: "Khăn ướt",
+                unit: "Bình",
+                size: "",
+                qty: "10"
+            }
+        ],
+        listSupplier: [
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99acc",
+                supplierName: "NCC1",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99aca",
+                supplierName: "NCC2",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99acq",
+                supplierName: "NCC3",
+            }
+        ]
+    },
+    {
+        id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac7",
+        titleQuote: "Yêu cầu báo giá 2",
+        createTime: "2024-12-02T17:31:09.2704834",
+        status: "Waiting Manager Approver",
+        listItems: [
+            {
+                id: "c7a4afdf-28dd-4889-1e4d-bf2a54a99ac7",
+                itemId: "IT3",
+                item: "Bút",
+                unit: "Cây",
+                size: "",
+                qty: "20"
+            },
+            {
+                id: "c7a4afdf-28dd-4889-9e4d-bf2a54a19ac7",
+                itemId: "IT4",
+                item: "Khăn ướt",
+                unit: "Bình",
+                size: "",
+                qty: "10"
+            }
+        ],
+        listSupplier: [
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac1",
+                supplierName: "NCC4",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac2",
+                supplierName: "NCC5",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac3",
+                supplierName: "NCC6",
+            }
+        ]
+    },
+]
+
+//Cập nhật bảng báo giá
+export const listItemQuoteBySupplier =
+{
+    id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99acc",
+    supplierName: "NCC1",
+    note: "",
+    listItems: [
+        {
+            id: "c7a4afdf-28dd-1889-9e4d-bf2a54a99ac7",
+            itemId: "IT1",
+            item: "Bút",
+            unit: "Cây",
+            size: "",
+            qty: "20",
+            price: "",
+            deal: "",
+            tax: "",
+        },
+        {
+            id: "c7a4afdf-38dd-4889-9e4d-bf2a54a99ac7",
+            itemId: "IT2",
+            item: "Khăn ướt",
+            unit: "Bình",
+            size: "",
+            qty: "10",
+            price: "",
+            deal: "",
+            tax: "",
+        }
+    ],
+}

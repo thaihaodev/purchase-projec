@@ -2,21 +2,18 @@ import { Button, Col, DatePicker, message, Row, Select, Modal } from "antd";
 import "antd/dist/reset.css";
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import QuoteRequestTable from "./components/QuoteRequestTable"
+import PurchaseOrderTable from "./components/PurchaseOrderTable"
 // import CreatePurchaseRequestModal from "./components/CreatePurchaseRequestModal";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
-const QuoteRequestPage = () => {
+const PurchaseOrderPage = () => {
     const now = dayjs();
     const [fromDate, setFromDate] = useState(now.format('YYYY-MM-DD'));
     const [toDate, setToDate] = useState(now.format('YYYY-MM-DD'));
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalVisibility, setModalVisibility] = useState({
-        viewCompareModal: false,
-        detailQuoteModal: false,
-    });
+
     const handleDateChange = (dates) => {
         if (dates) {
             const fromDate = dates[0];
@@ -35,13 +32,6 @@ const QuoteRequestPage = () => {
         }
     };
 
-    const toggleModal = (modalName, isOpen) => {
-        setModalVisibility((prev) => ({
-            ...prev,
-            [modalName]: isOpen,
-        }));
-    };
-
     return <>
         <div>
             <Row justify="space-between" align="middle" gutter={16} className="toolbar">
@@ -54,22 +44,10 @@ const QuoteRequestPage = () => {
                 </Col>
             </Row>
             <div className="main-content">
-                <QuoteRequestTable />
+                <PurchaseOrderTable />
             </div>
         </div>
-        {/* <Modal
-            title="Yêu Cầu Mua Hàng"
-            style={{
-                top: 20,
-            }}
-            open={modalVisibility.createPurchaseRequestModal}
-            onCancel={() => toggleModal("createPurchaseRequestModal", false)}
-            footer={null}
-            width={1400}
-        >
-            <CreatePurchaseRequestModal onClose={() => toggleModal("main", false)} />
-        </Modal> */}
     </>;
 }
 
-export default QuoteRequestPage;
+export default PurchaseOrderPage;
