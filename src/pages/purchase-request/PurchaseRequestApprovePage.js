@@ -3,7 +3,7 @@ import {
     CloseOutlined,
     CheckOutlined,
 } from "@ant-design/icons";
-import { Button, Col, DatePicker, message, Row, Select, Table, Tooltip, Popconfirm, Modal, Card, Flex } from "antd";
+import { Button, Col, DatePicker, message, Row, Select, Table, Tooltip, Popconfirm, Modal, Flex } from "antd";
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import "antd/dist/reset.css";
@@ -14,7 +14,6 @@ import WatchPurchaseRequestModal from "./components/WatchPurchaseRequestModal";
 import UpdatePurchaseRequestModal from "./components/UpdatePurchaseRequestModal";
 
 const { RangePicker } = DatePicker;
-const { Option } = Select;
 
 const PurchaseRequestApprovePage = () => {
     const now = dayjs();
@@ -27,7 +26,6 @@ const PurchaseRequestApprovePage = () => {
         createQuoteRequestModal: false,
     });
 
-    // Các trạng thái và hành động liên quan đến bảng
     const [tableParams, setTableParams] = useState({
         pagination: {
             current: 1,

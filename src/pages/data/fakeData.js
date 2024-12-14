@@ -196,3 +196,82 @@ export const listItemQuoteBySupplier =
         }
     ],
 }
+
+export const dataListComparePrice = [
+    {
+        id: "c7a4afdf-28dd-4889-9e4d-bf2a54a99ac7",
+        titleCompare: "Yêu cầu báo giá 1",
+        createTime: "2024-12-02T17:31:09.2704834",
+        status: "Waiting Product Quote",
+        listItems: [
+            {
+                id: "c7a4afdf-28dd-1889-9e4d-bf2a54a99ac7",
+                itemId: "IT1",
+                item: "Bút",
+                unit: "Cây",
+                size: "",
+                qty: "20"
+            },
+            {
+                id: "c7a4afdf-38dd-4889-9e4d-bf2a54a99ac7",
+                itemId: "IT2",
+                item: "Khăn ướt",
+                unit: "Bình",
+                size: "",
+                qty: "10"
+            }
+        ],
+        listSupplier: [
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99acc",
+                supplierName: "NCC1",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99aca",
+                supplierName: "NCC2",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99acq",
+                supplierName: "NCC3",
+            }
+        ]
+    },
+    {
+        id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac7",
+        titleCompare: "Yêu cầu báo giá 2",
+        createTime: "2024-12-02T17:31:09.2704834",
+        status: "Waiting Manager Approver",
+        listItems: [
+            {
+                id: "c7a4afdf-28dd-4889-1e4d-bf2a54a99ac7",
+                itemId: "IT3",
+                item: "Bút",
+                unit: "Cây",
+                size: "",
+                qty: "20"
+            },
+            {
+                id: "c7a4afdf-28dd-4889-9e4d-bf2a54a19ac7",
+                itemId: "IT4",
+                item: "Khăn ướt",
+                unit: "Bình",
+                size: "",
+                qty: "10"
+            }
+        ],
+        listSupplier: [
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac1",
+                supplierName: "NCC4",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac2",
+                supplierName: "NCC5",
+            },
+            {
+                id: "e7a4afdf-28dd-4889-9e4d-bf2a54a99ac3",
+                supplierName: "NCC6",
+            }
+        ]
+    },
+]
