@@ -31,17 +31,12 @@ const CreateQuoteRequestModal = (props) => {
             },
         ],
     };
-
     useEffect(() => {
-        if (listRequest && listRequest?.length > 0) {
+        if (listRequest && listRequest.length > 0) {
             const allDetails = listRequest.flatMap(request => request.listDetailRequests);
-            // const mergedData = {
-            //     id: uuidv4(), // Tạo ID mới
-            //     // createTime: Date.now(),
-            //     userQuote: "Hảo", // Cố định "Hảo"
-            //     listDetailRequestQuote: allDetails, // Gộp tất cả các listDetailRequests
-            // };
             setListDetailQuote(allDetails);
+        }else {
+            setListDetailQuote([]); // Reset khi listRequest rỗng
         }
     }, [listRequest]);
 
