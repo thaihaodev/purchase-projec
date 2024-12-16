@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload, Radio } from "antd";
+import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload, Radio, Modal } from "antd";
 import dayjs from "dayjs";
 import { CloseOutlined, PlusCircleOutlined, MergeCellsOutlined } from "@ant-design/icons";
 import "../style.css"
@@ -10,11 +10,11 @@ const { Option } = Select;
 const QuoteRequestDetailModal = (props) => {
     const { dataItem } = props;
     const [form] = Form.useForm();
-    const [reason, setReason] = useState("");
     const [listItemQuoteRequest, setListItemQuoteRequest] = useState([]);
     const [fileList, setFileList] = useState([]);
     const [isMore, setIsMore] = useState(false);
     const [selectedSupplier, setSelectedSupplier] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const Validate = {
         TitleQuote: [
@@ -34,48 +34,81 @@ const QuoteRequestDetailModal = (props) => {
                 };
                 form.setFieldsValue(dataObj);
                 setListItemQuoteRequest(dataItem.listItems);
+                setSelectedSupplier(null);
             }
         })();
     }, [dataItem, form]);
 
     const columns = [
+        ...(() => {
+            if (isMore) {
+                return [
+                    {
+                        title: "ID PR",
+                        dataIndex: 'idPr',
+                        key: "idPr",
+                        width: 100,
+                    },
+                    {
+                        title: "Chain",
+                        dataIndex: 'chain',
+                        key: "chain",
+                        width: 120,
+                    },
+                    {
+                        title: "Dept",
+                        dataIndex: 'dept',
+                        key: "dept",
+                        width: 100,
+                    },
+                    {
+                        title: "Account",
+                        dataIndex: 'account',
+                        key: "account",
+                        width: 120,
+                    },
+                ];
+            } else {
+                return [];
+            }
+        })(),
         {
             title: "ItemID",
             dataIndex: "itemId",
             key: "itemId",
-            width: 180,
+            width: 100,
         },
         {
             title: "Item",
             dataIndex: "item",
             key: "dept",
-            width: 180,
+            width: 100,
         },
         {
             title: "Unit",
             dataIndex: "unit",
             key: "unit",
-            width: 180,
+            width: 100,
         },
         {
             title: "Size",
             dataIndex: "size",
             key: "size",
-            width: 180,
+            width: 100,
         },
         {
             title: "Qty",
             dataIndex: "qty",
             key: "qty",
-            width: 180,
+            width: 100,
         },
     ];
 
     const handleReset = () => {
         form.resetFields(); // Reset các giá trị trong form
-        setReason("");
         setListItemQuoteRequest([]); // Clear danh sách chi tiết
         setFileList([]);
+        setSelectedSupplier(null);
     };
 
     const handleUploadChange = ({ fileList }) => {
@@ -110,6 +143,11 @@ const QuoteRequestDetailModal = (props) => {
 
     const handleSupplierChange = (e) => {
         setSelectedSupplier(e.target.value);
+    };
+
+    const handleSupplierButtonClick = (supplierId) => {
+        setSelectedSupplier(supplierId); // Cập nhật nhà cung cấp được chọn
+        setIsModalVisible(true); // Mở modal
     };
 
     return (
@@ -159,30 +197,20 @@ const QuoteRequestDetailModal = (props) => {
                 bordered
                 size="small"
                 scroll={{
-                    x: 1500,
+                    x: isMore ? 1500 : 1200,
                     y: "calc(100vh - 230px)",
                     scrollToFirstRowOnChange: true,
                 }}
             />
             <Row gutter={16}>
                 <Col span={24}>
-                    <Radio.Group onChange={handleSupplierChange}>
-                        {dataItem?.listSupplier?.map((supplier) => (
-                            <Radio key={supplier.id} value={supplier.id}>
-                                {supplier.supplierName}
-                            </Radio>
-                        ))}
-                    </Radio.Group>
+                    {dataItem?.listSupplier?.map((supplier) => (
+                        <Button key={supplier.id} onClick={() => handleSupplierButtonClick(supplier.id)} style={{ padding: '2px 10px', marginRight: '10px' }}>
+                            {supplier.supplierName}
+                        </Button>
+                    ))}
                 </Col>
             </Row>
-            {
-                selectedSupplier &&
-                (<Row gutter={16} style={{ marginTop: '8px' }}>
-                    <Col span={24}>
-                        <UpdateQuoteTable selectedSupplier={selectedSupplier} />
-                    </Col>
-                </Row>)
-            }
             <Row gutter={16}>
                 <Col span={24}>
                     <Button type="primary" style={{ float: 'right', marginTop: '20px' }} onClick={handleSubmit}>
@@ -190,6 +218,15 @@ const QuoteRequestDetailModal = (props) => {
                     </Button>
                 </Col>
             </Row>
+            <Modal
+                title="Cập Nhật Bảng Báo Giá"
+                open={isModalVisible}
+                onCancel={() => setIsModalVisible(false)}
+                footer={null}
+                width={1000}
+            >
+                <UpdateQuoteTable selectedSupplier={selectedSupplier} />
+            </Modal>
         </Card>
     );
 };

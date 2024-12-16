@@ -12,6 +12,7 @@ import {
 import dayjs from "dayjs";
 import ComparePriceModal from "./ComparePriceModal"
 import UpdateComparePriceModal from "./UpdateComparePriceModal"
+import UpdateQuoteTable from "../../quote-request/components/UpdateQuoteTable";
 
 const ComparePriceTable = () => {
     const searchInput = useRef(null);
@@ -139,15 +140,13 @@ const ComparePriceTable = () => {
             </Modal>
             <Modal
                 title="Cập Nhật Bảng Báo Giá"
-                style={{
-                    top: 20,
-                }}
                 open={modalVisibility.viewUpdateComparePrice}
                 onCancel={() => toggleModal("viewUpdateComparePrice", false)}
                 footer={null}
-                width={1200}
+                width={1000}
             >
-                <UpdateComparePriceModal supplierId={selectedSupplierId} />
+                {/* <UpdateComparePriceModal supplierId={selectedSupplierId} /> */}
+                <UpdateQuoteTable selectedSupplier={selectedSupplierId} />
             </Modal>
         </>
     );

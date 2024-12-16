@@ -95,6 +95,10 @@ export const dataListQuoteRequest = [
         listItems: [
             {
                 id: "c7a4afdf-28dd-1889-9e4d-bf2a54a99ac7",
+                idPr: "1",
+                chain: "TBS CFS",
+                dept: "Kho6",
+                account: "622204064",
                 itemId: "IT1",
                 item: "Bút",
                 unit: "Cây",
@@ -103,6 +107,10 @@ export const dataListQuoteRequest = [
             },
             {
                 id: "c7a4afdf-38dd-4889-9e4d-bf2a54a99ac7",
+                idPr: "2",
+                chain: "TBS CFS",
+                dept: "Kho6",
+                account: "622204064",
                 itemId: "IT2",
                 item: "Khăn ướt",
                 unit: "Bình",
@@ -133,6 +141,10 @@ export const dataListQuoteRequest = [
         listItems: [
             {
                 id: "c7a4afdf-28dd-4889-1e4d-bf2a54a99ac7",
+                idPr: "1",
+                chain: "TBS CFS",
+                dept: "Kho6",
+                account: "622204064",
                 itemId: "IT3",
                 item: "Bút",
                 unit: "Cây",
@@ -141,6 +153,10 @@ export const dataListQuoteRequest = [
             },
             {
                 id: "c7a4afdf-28dd-4889-9e4d-bf2a54a19ac7",
+                idPr: "1",
+                chain: "TBS CFS",
+                dept: "Kho6",
+                account: "622204064",
                 itemId: "IT4",
                 item: "Khăn ướt",
                 unit: "Bình",

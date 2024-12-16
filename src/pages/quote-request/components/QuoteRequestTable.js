@@ -101,7 +101,7 @@ const QuoteRequestTable = () => {
                     scrollToFirstRowOnChange: true,
                 }}
             />
-            <Modal
+            {/* <Modal
                 title="View Compare"
                 style={{
                     top: 20,
@@ -109,19 +109,19 @@ const QuoteRequestTable = () => {
                 open={modalVisibility.viewCompareModal}
                 onCancel={() => toggleModal("viewCompareModal", false)}
                 footer={null}
-                width={1400}
+                width={1200}
             >
-                {/* Thêm nội dung cho View Compare Modal */}
-            </Modal>
+                Thêm nội dung cho View Compare Modal
+            </Modal> */}
             <Modal
-                title="Detail Quote"
+                title="Chi Tiết Yêu Cầu Báo Giá"
                 style={{
                     top: 20,
                 }}
                 open={modalVisibility.detailQuoteModal}
                 onCancel={() => toggleModal("detailQuoteModal", false)}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 <QuoteRequestDetailModal dataItem={selectedRecord} />
             </Modal>

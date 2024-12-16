@@ -13,11 +13,11 @@ const UpdateQuoteTable = (props) => {
     const [dataSource, setDataSource] = useState([]);
     const [fileList, setFileList] = useState([]);
 
-
     useEffect(() => {
         (async () => {
             if (selectedSupplier) {
                 setDataSource(listItemQuoteBySupplier.listItems);
+                setFileList([]);
             }
         })();
     }, [selectedSupplier]);
@@ -37,34 +37,39 @@ const UpdateQuoteTable = (props) => {
             title: "Item ID",
             dataIndex: "itemId",
             key: "itemId",
+            width: 120,
         },
         {
             title: "Item",
             dataIndex: "item",
             key: "item",
+            width: 120,
         },
         {
             title: "Unit",
             dataIndex: "unit",
             key: "unit",
+            width: 120,
         },
         {
             title: "Size",
             dataIndex: "size",
             key: "size",
+            width: 120,
         },
         {
             title: "Qty",
             dataIndex: "qty",
             key: "qty",
+            width: 120,
         },
         {
             title: "Price",
             dataIndex: "price",
             key: "price",
+            width: 120,
             render: (text, record) => (
                 <Input
-                    type="number"
                     value={text}
                     onChange={(e) => handleInputChange(e.target.value, record, "price")}
                 />
@@ -74,9 +79,9 @@ const UpdateQuoteTable = (props) => {
             title: "Deal",
             dataIndex: "deal",
             key: "deal",
+            width: 120,
             render: (text, record) => (
                 <Input
-                    type="number"
                     value={text}
                     onChange={(e) => handleInputChange(e.target.value, record, "deal")}
                 />
@@ -86,9 +91,9 @@ const UpdateQuoteTable = (props) => {
             title: "Tax",
             dataIndex: "tax",
             key: "tax",
+            width: 120,
             render: (text, record) => (
                 <Input
-                    type="number"
                     value={text}
                     onChange={(e) => handleInputChange(e.target.value, record, "tax")}
                 />
