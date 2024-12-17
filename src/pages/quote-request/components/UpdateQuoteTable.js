@@ -107,7 +107,7 @@ const UpdateQuoteTable = (props) => {
 
     return (
         <>
-            <Card size="small" title={listItemQuoteBySupplier.supplierName}>
+            <Card>
                 <Form form={form} layout="vertical">
                     <Row>
                         <Col span={24}>

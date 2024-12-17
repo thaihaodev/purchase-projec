@@ -11,6 +11,7 @@ const { Option } = Select;
 
 const UpdatePurchaseRequestModal = (props) => {
     const { dataItem, onClose } = props;
+    console.log(dataItem, 'dataItem')
     const [form] = Form.useForm();
     const [month, setMonth] = useState("");
     const [monthOptions, setMonthOptions] = useState([]);
@@ -22,7 +23,7 @@ const UpdatePurchaseRequestModal = (props) => {
     const [accountsCus, setAccountsCus] = useState([]);
     const [errors, setErrors] = useState({});
     const [fileList, setFileList] = useState([]);
-
+    console.log(dataItem, 'dataItem');
     const Validate = {
         TitleRequest: [
             {
@@ -104,6 +105,7 @@ const UpdatePurchaseRequestModal = (props) => {
 
     useEffect(() => {
         (async () => {
+            if (!dataItem) return null;
             if (dataItem) {
                 let dataObj = {
                     titleRequest: dataItem.titleRequest,
@@ -123,7 +125,7 @@ const UpdatePurchaseRequestModal = (props) => {
                 setListDetailRequest(detailRequests);
             }
         })();
-    }, [dataItem, form]);
+    }, [props, dataItem, form]);
 
 
     const handleOnChangeCustomer = async (val) => {

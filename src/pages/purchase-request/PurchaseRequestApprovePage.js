@@ -1,3 +1,4 @@
+////Không dùng nữa
 import {
     EyeOutlined,
     CloseOutlined,
@@ -191,21 +192,21 @@ const PurchaseRequestApprovePage = () => {
             </div>
             <Modal
                 title="Yêu Cầu Báo Giá"
-                style={{ top: 20 }}
+                style={{ top: 50 }}
                 open={modalVisibility.createQuoteRequestModal}
                 onCancel={() => toggleModal("createQuoteRequestModal", false)}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 <CreateQuoteRequestModal listRequest={selectedRows} handleClearRows={handleClearRows} />
             </Modal>
             <Modal
                 title={roleUser.roleId === 1 ? "Danh Sách Yêu Cầu Mua Hàng" : "Cập Nhật Yêu Cầu"}
-                style={{ top: 20 }}
+                style={{ top: 50 }}
                 open={modalVisible}
                 onCancel={handleCloseModal}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 {roleUser.roleId === 1 ? (
                     <WatchPurchaseRequestModal

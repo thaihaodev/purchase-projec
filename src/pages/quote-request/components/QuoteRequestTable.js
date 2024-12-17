@@ -77,6 +77,13 @@ const QuoteRequestTable = () => {
             dataIndex: "createTime",
             key: "createTime",
             width: 100,
+            render: (val, record) => {
+                return (
+                    <div>
+                        {record && record.createTime ? dayjs(record.createTime).format("YYYY-MM-DD HH:mm:ss") : ""}
+                    </div>
+                );
+            },
         },
         {
             title: "Status",
@@ -116,7 +123,7 @@ const QuoteRequestTable = () => {
             <Modal
                 title="Chi Tiết Yêu Cầu Báo Giá"
                 style={{
-                    top: 20,
+                    top: 50,
                 }}
                 open={modalVisibility.detailQuoteModal}
                 onCancel={() => toggleModal("detailQuoteModal", false)}

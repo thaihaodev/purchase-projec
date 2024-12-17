@@ -37,7 +37,7 @@ const PurchaseRequestTable = ({ onSelectChange, handleClearRows }) => {
             pageSize: 100,
         },
     });
- 
+
     const rowSelection = {
         selectedRowKeys,
         // onChange: onSelectChange,
@@ -72,7 +72,7 @@ const PurchaseRequestTable = ({ onSelectChange, handleClearRows }) => {
             title: "Action",
             key: "operation",
             fixed: "left",
-            width: 70,
+            width: roleUser.roleId === 1 ? 100 : 70,
             render: (val, record) => {
                 return (
                     <Flex horizontal="true" gap="small" justify='center'>
@@ -84,7 +84,7 @@ const PurchaseRequestTable = ({ onSelectChange, handleClearRows }) => {
                                     onClick={() => handleViewUpdateRequest(record)}
                                 ></Button>
                             </Tooltip>
-                           
+
                             {
                                 roleUser.roleId === 1 ? (
                                     <>
@@ -112,17 +112,17 @@ const PurchaseRequestTable = ({ onSelectChange, handleClearRows }) => {
                                         </Tooltip>
                                     </>
                                 ) : <>
-                                <Tooltip title="Gửi Yêu Cầu">
-                                    <Popconfirm
-                                        title="Gửi Xác Nhận Yêu Cầu"
-                                        description={<>Bạn có chắc chắn muốn gửi yêu cầu?</>}
-                                        onConfirm={() => handleSendConfirmRequest()}
-                                        okText="Có"
-                                        cancelText="Không"
-                                    >
-                                        <Button size="small" icon={<SendOutlined />}></Button>
-                                    </Popconfirm>
-                                </Tooltip>
+                                    <Tooltip title="Gửi Yêu Cầu">
+                                        <Popconfirm
+                                            title="Gửi Xác Nhận Yêu Cầu"
+                                            description={<>Bạn có chắc chắn muốn gửi yêu cầu?</>}
+                                            onConfirm={() => handleSendConfirmRequest()}
+                                            okText="Có"
+                                            cancelText="Không"
+                                        >
+                                            <Button size="small" icon={<SendOutlined />}></Button>
+                                        </Popconfirm>
+                                    </Tooltip>
                                 </>
                             }
                         </>
@@ -240,12 +240,12 @@ const PurchaseRequestTable = ({ onSelectChange, handleClearRows }) => {
                 }}
             />
             <Modal
-                title={roleUser.roleId === 1 ? "Danh Sách Yêu Cầu Mua Hàng" : "Cập Nhật Yêu Cầu"}
-                style={{ top: 20 }}
+                title={roleUser.roleId === 1 ? "Danh Sách Yêu Cầu Mua Hàng" : "Cập Nhật Yêu Cầu Mua Hàng"}
+                style={{ top: 50 }}
                 open={modalVisible}
                 onCancel={handleCloseModal}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 {roleUser.roleId === 1 ? (
                     <WatchPurchaseRequestModal

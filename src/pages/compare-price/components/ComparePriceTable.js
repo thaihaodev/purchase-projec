@@ -134,7 +134,7 @@ const ComparePriceTable = () => {
                 open={modalVisibility.viewCompareModal}
                 onCancel={() => toggleModal("viewCompareModal", false)}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 <ComparePriceModal dataItem={selectedRecord} />
             </Modal>

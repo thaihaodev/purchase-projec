@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload } from "antd";
 import dayjs from "dayjs";
-import { CloseOutlined, PlusCircleOutlined, UploadOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusSquareOutlined, UploadOutlined } from "@ant-design/icons";
 import BudgetDetailTable from "./BudgetDetailTable";
 import { formatNameFileUpload } from "../../../utils/helpers"
 import "../style.css"
@@ -514,8 +514,8 @@ const CreatePurchaseRequestModal = () => {
                     scrollToFirstRowOnChange: true,
                 }}
             />
-            <Button type="primary" size="small" onClick={handleAddRow} style={{ margin: "8px 0 16px 0" }}>
-                <PlusCircleOutlined /> Append
+            <Button color="black" size="small" onClick={handleAddRow} style={{ margin: "8px 0 16px 0" }}>
+                <PlusSquareOutlined /> Append
             </Button>
             <Collapse
                 size="small"

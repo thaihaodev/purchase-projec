@@ -103,12 +103,12 @@ const PurchaseRequestPage = () => {
                         onChange={handleDateChange}
                         style={{ marginRight: 10 }}
                     />
-                      {roleUser.roleId !== 1 && (
+                    {roleUser.roleId !== 1 && (
                         <>
-                        <Button  style={{marginRight:"10px"}} onClick={() => toggleModal("createPurchaseRequestModal", true)} type="primary">Create Request</Button>
-                        <Button onClick={() => toggleModal("createQuoteRequestModal", true)} type="primary">
-                            Create Quote
-                        </Button>
+                            <Button style={{ marginRight: "10px" }} onClick={() => toggleModal("createPurchaseRequestModal", true)} type="primary">Create Request</Button>
+                            <Button onClick={() => toggleModal("createQuoteRequestModal", true)} type="primary">
+                                Create Quote
+                            </Button>
                         </>
                     )}
                 </Col>
@@ -120,7 +120,7 @@ const PurchaseRequestPage = () => {
                 </Col>
             </Row>
             <div className="main-content">
-                <PurchaseRequestTable 
+                <PurchaseRequestTable
                     onSelectChange={onSelectChange}
                     handleClearRows={handleClearRows}
                 />
@@ -139,35 +139,35 @@ const PurchaseRequestPage = () => {
             <CreatePurchaseRequestModal onClose={() => toggleModal("main", false)} />
         </Modal>
         <Modal
-                title="Tạo Yêu Cầu Báo Giá"
-                style={{ top: 20 }}
-                open={modalVisibility.createQuoteRequestModal}
-                onCancel={() => toggleModal("createQuoteRequestModal", false)}
-                footer={null}
-                width={1400}
-            >
-                <CreateQuoteRequestModal listRequest={selectedRows} handleClearRows={handleClearRows} />
-            </Modal>
-            <Modal
-                title={roleUser.roleId === 1 ? "Xem Yêu Cầu Mua Hàng" : "Cập Nhật Yêu Cầu Mua Hàng"}
-                style={{ top: 20 }}
-                open={roleUser.roleId === 1 ? modalVisibility.watchPurchaseRequestModal : modalVisibility.updatePurchaseRequestModal}
-                onCancel={() => {
-                    roleUser.roleId === 1 ? toggleModal("watchPurchaseRequestModal", false) : toggleModal("updatePurchaseRequestModal", false)
-                }}
-                footer={null}
-                width={1400}
-            >
-                {roleUser.roleId === 1 ? (
-                    <WatchPurchaseRequestModal
-                        dataItem={selectedRecord}
-                    />
-                ) : (
-                    <UpdatePurchaseRequestModal
-                        dataItem={selectedRecord}
-                    />
-                )}
-            </Modal>
+            title="Tạo Yêu Cầu Báo Giá"
+            style={{ top: 50 }}
+            open={modalVisibility.createQuoteRequestModal}
+            onCancel={() => toggleModal("createQuoteRequestModal", false)}
+            footer={null}
+            width={1200}
+        >
+            <CreateQuoteRequestModal listRequest={selectedRows} handleClearRows={handleClearRows} />
+        </Modal>
+        {/* <Modal
+            title={roleUser.roleId === 1 ? "Xem Yêu Cầu Mua Hàng" : "Cập Nhật Yêu Cầu Mua Hàng"}
+            style={{ top: 50 }}
+            open={roleUser.roleId === 1 ? modalVisibility.watchPurchaseRequestModal : modalVisibility.updatePurchaseRequestModal}
+            onCancel={() => {
+                roleUser.roleId === 1 ? toggleModal("watchPurchaseRequestModal", false) : toggleModal("updatePurchaseRequestModal", false)
+            }}
+            footer={null}
+            width={1200}
+        >
+            {roleUser.roleId === 1 ? (
+                <WatchPurchaseRequestModal
+                    dataItem={selectedRecord}
+                />
+            ) : (
+                <UpdatePurchaseRequestModal
+                    dataItem={selectedRecord}
+                />
+            )}
+        </Modal> */}
     </>;
 }
 

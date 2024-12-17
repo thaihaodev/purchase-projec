@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload, Radio, Modal } from "antd";
+import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload, Radio, Modal, Checkbox } from "antd";
 import dayjs from "dayjs";
-import { CloseOutlined, PlusCircleOutlined, MergeCellsOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusCircleOutlined, MergeCellsOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import "../style.css"
 import { v4 as uuidv4 } from 'uuid';
 import UpdateQuoteTable from './UpdateQuoteTable';
@@ -14,7 +14,9 @@ const QuoteRequestDetailModal = (props) => {
     const [fileList, setFileList] = useState([]);
     const [isMore, setIsMore] = useState(false);
     const [selectedSupplier, setSelectedSupplier] = useState(null);
+    const [supplierName, setSupplierName] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectedSupplierIds, setSelectedSupplierIds] = useState([]); // Lưu danh sách nhà cung cấp được chọn
 
     const Validate = {
         TitleQuote: [
@@ -145,21 +147,80 @@ const QuoteRequestDetailModal = (props) => {
         setSelectedSupplier(e.target.value);
     };
 
-    const handleSupplierButtonClick = (supplierId) => {
-        setSelectedSupplier(supplierId); // Cập nhật nhà cung cấp được chọn
+    const handleSupplierButtonClick = (supplier) => {
+        setSupplierName(supplier.supplierName)
+        setSelectedSupplier(supplier.id); // Cập nhật nhà cung cấp được chọn
         setIsModalVisible(true); // Mở modal
     };
 
+    const handleCheckboxChange = (supplierId, isChecked) => {
+        if (isChecked) {
+            setSelectedSupplierIds((prev) => [...prev, supplierId]); // Thêm ID vào danh sách
+        } else {
+            setSelectedSupplierIds((prev) =>
+                prev.filter((id) => id !== supplierId) // Loại bỏ ID khỏi danh sách
+            );
+        }
+    };
+    console.log(selectedSupplierIds, 'selectedSupplierIds');
     return (
         <Card className="quote-request-detail-modal">
             <Form form={form} layout="vertical">
-                <Row gutter={16}>
+                <Row>
                     <Col span={24}>
                         <Form.Item label="Title" name="titleQuote" rules={Validate.TitleQuote} >
                             <Input />
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
+                        {
+                            isMore ? (
+                                <Button color="black" size="small" onClick={() => setIsMore(false)}><MinusCircleOutlined />Less</Button>
+                            ) :
+                                (
+                                    <Button color="black" size="small" onClick={() => setIsMore(true)}><PlusCircleOutlined />More</Button>
+                                )
+                        }
+                    </Col>
+                    <Col span={24}>
+                        <Table
+                            style={{ margin: "10px 0" }}
+                            className="create-quote-table-detail"
+                            locale={{ emptyText: "No data" }}
+                            dataSource={listItemQuoteRequest}
+                            columns={columns}
+                            pagination={false}
+                            rowKey={(record) => record?.id}
+                            bordered
+                            size="small"
+                            scroll={{
+                                x: isMore ? 1500 : 1200,
+                                y: "calc(100vh - 230px)",
+                                scrollToFirstRowOnChange: true,
+                            }}
+                        />
+                    </Col>
+                    <Col span={24}>
+                        {/* <Form.Item label="Nhà cung cấp" name="listSupplier">
+                            {dataItem?.listSupplier?.map((supplier) => (
+                                <Button key={supplier.id} onClick={() => handleSupplierButtonClick(supplier)} style={{ padding: '2px 10px', marginRight: '10px' }}>
+                                    {supplier.supplierName}
+                                </Button>
+                            ))}
+                        </Form.Item> */}
+                        <Form.Item label="Nhà cung cấp" name="listSupplier">
+                            {dataItem?.listSupplier?.map((supplier) => (
+                                <Button key={supplier.id} style={{ padding: "2px 10px", marginRight: "10px", }}
+                                    onClick={(e) => {
+                                        if (e.target.tagName !== "INPUT") {
+                                            handleSupplierButtonClick(supplier);
+                                        }
+                                    }}>
+                                    <Checkbox style={{ marginRight: "8px" }} onChange={(e) => handleCheckboxChange(supplier.id, e.target.checked)} />
+                                    {supplier.supplierName}
+                                </Button>
+                            ))}
+                        </Form.Item>
                     </Col>
                     <Col span={24}>
                         <Form.Item
@@ -171,55 +232,18 @@ const QuoteRequestDetailModal = (props) => {
                             />
                         </Form.Item>
                     </Col>
+                    <Col span={24}>
+                        <Button type="primary" style={{ float: 'right', marginTop: '10px' }} onClick={handleSubmit}>
+                            Compare
+                        </Button>
+                    </Col>
                 </Row>
             </Form>
-            {/* Chi tiết các thiết bị */}
-            <Row>
-                <Col span={24}>
-                    {
-                        isMore ? (
-                            <Button color="primary" variant="outlined" size="small" onClick={() => setIsMore(false)}><MergeCellsOutlined />Less</Button>
-                        ) :
-                            (
-                                <Button color="primary" variant="outlined" size="small" onClick={() => setIsMore(true)}><MergeCellsOutlined />More</Button>
-                            )
-                    }
-                </Col>
-            </Row>
-            <Table
-                style={{ margin: "16px 0" }}
-                className="create-quote-table-detail"
-                locale={{ emptyText: "No data" }}
-                dataSource={listItemQuoteRequest}
-                columns={columns}
-                pagination={false}
-                rowKey={(record) => record?.id}
-                bordered
-                size="small"
-                scroll={{
-                    x: isMore ? 1500 : 1200,
-                    y: "calc(100vh - 230px)",
-                    scrollToFirstRowOnChange: true,
-                }}
-            />
-            <Row gutter={16}>
-                <Col span={24}>
-                    {dataItem?.listSupplier?.map((supplier) => (
-                        <Button key={supplier.id} onClick={() => handleSupplierButtonClick(supplier.id)} style={{ padding: '2px 10px', marginRight: '10px' }}>
-                            {supplier.supplierName}
-                        </Button>
-                    ))}
-                </Col>
-            </Row>
-            <Row gutter={16}>
-                <Col span={24}>
-                    <Button type="primary" style={{ float: 'right', marginTop: '20px' }} onClick={handleSubmit}>
-                        Compare
-                    </Button>
-                </Col>
-            </Row>
             <Modal
-                title="Cập Nhật Bảng Báo Giá"
+                title={`Cập Nhật Bảng Báo Giá ${supplierName}`}
+                style={{
+                    top: 70,
+                }}
                 open={isModalVisible}
                 onCancel={() => setIsModalVisible(false)}
                 footer={null}

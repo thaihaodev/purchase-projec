@@ -104,24 +104,24 @@ const ApproveSupplierTable = () => {
             <Modal
                 title="Duyệt Nhà Cung Cấp"
                 style={{
-                    top: 20,
+                    top: 50,
                 }}
                 open={modalVisibility.approveSupplierModal}
                 onCancel={() => toggleModal("approveSupplierModal", false)}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 <ApproveSupplierDetailModal dataItem={selectedRecord} />
             </Modal>
             {/* <Modal
                 title="Detail Quote"
                 style={{
-                    top: 20,
+                    top: 50,
                 }}
                 open={modalVisibility.detailQuoteModal}
                 onCancel={() => toggleModal("detailQuoteModal", false)}
                 footer={null}
-                width={1400}
+                width={1200}
             >
                 <ApproveSupplierDetailModal dataItem={selectedRecord} />
             </Modal> */}

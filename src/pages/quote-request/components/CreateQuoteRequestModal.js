@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Select, Input, Table, Tabs, Form, message, Card, Row, Col, Collapse, Flex, Tooltip, Upload } from "antd";
 import dayjs from "dayjs";
-import { CloseOutlined, PlusCircleOutlined, MergeCellsOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusCircleOutlined, MergeCellsOutlined, SplitCellsOutlined } from "@ant-design/icons";
 import "../style.css"
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,7 +15,7 @@ const CreateQuoteRequestModal = (props) => {
     const [reason, setReason] = useState("");
     const [listDetailQuote, setListDetailQuote] = useState([]);
     const [fileList, setFileList] = useState([]);
-    const [merge, setMerge] = useState(false);
+    const [isMerge, setIsMerge] = useState(false);
 
     const Validate = {
         TitleQuote: [
@@ -35,10 +35,10 @@ const CreateQuoteRequestModal = (props) => {
         if (listRequest && listRequest.length > 0) {
             const allDetails = listRequest.flatMap(request => request.listDetailRequests);
             setListDetailQuote(allDetails);
-        }else {
+        } else {
             setListDetailQuote([]); // Reset khi listRequest rỗng
         }
-    }, [listRequest]);
+    }, [props, listRequest]);
 
     const generateMonthsForCurrentYear = () => {
         const currentYear = dayjs().year();
@@ -214,14 +214,32 @@ const CreateQuoteRequestModal = (props) => {
                         </Form.Item>
                     </Col>
                     <Col span={24}>
-                        <Form.Item
-                            label="Ghi chú"
-                            name="note"
-                        >
-                            <Input.TextArea
-                                rows={2}
-                            />
-                        </Form.Item>
+                        {
+                            isMerge ? (
+                                <Button color="black" size="small" onClick={() => setIsMerge(false)}><SplitCellsOutlined />Gộp</Button>
+                            ) :
+                                (
+                                    <Button color="black" size="small" onClick={() => setIsMerge(true)}><MergeCellsOutlined />Gộp</Button>
+                                )
+                        }
+                    </Col>
+                    <Col span={24}>
+                        <Table
+                            style={{ margin: "10px 0" }}
+                            className="create-quote-table-detail"
+                            locale={{ emptyText: "No data" }}
+                            dataSource={listDetailQuote}
+                            columns={columns}
+                            pagination={false}
+                            rowKey={(record) => record?.id}
+                            bordered
+                            size="small"
+                            scroll={{
+                                x: 1500,
+                                y: "calc(100vh - 230px)",
+                                scrollToFirstRowOnChange: true,
+                            }}
+                        />
                     </Col>
                     <Col span={24}>
                         <Form.Item label="Nhà cung cấp" name="supplier">
@@ -237,37 +255,23 @@ const CreateQuoteRequestModal = (props) => {
                             </Select>
                         </Form.Item>
                     </Col>
+                    <Col span={24}>
+                        <Form.Item
+                            label="Note"
+                            name="note"
+                        >
+                            <Input.TextArea
+                                rows={2}
+                            />
+                        </Form.Item>
+                    </Col>
+                    <Col span={24}>
+                        <Button type="primary" style={{ float: 'right', marginTop: '10px' }} onClick={handleSubmit}>
+                            Create
+                        </Button>
+                    </Col>
                 </Row>
             </Form>
-            {/* Chi tiết các thiết bị */}
-            <Row>
-                <Col span={24}>
-                    <Button color="primary" variant="outlined" size="small" onClick={() => setMerge(true)}><MergeCellsOutlined />Merge</Button>
-                </Col>
-            </Row>
-            <Table
-                style={{ marginTop: "8px" }}
-                className="create-quote-table-detail"
-                locale={{ emptyText: "No data" }}
-                dataSource={listDetailQuote}
-                columns={columns}
-                pagination={false}
-                rowKey={(record) => record?.id}
-                bordered
-                size="small"
-                scroll={{
-                    x: 1500,
-                    y: "calc(100vh - 230px)",
-                    scrollToFirstRowOnChange: true,
-                }}
-            />
-            <Row gutter={16}>
-                <Col span={24}>
-                    <Button type="primary" style={{ float: 'right' }} onClick={handleSubmit}>
-                        Create
-                    </Button>
-                </Col>
-            </Row>
         </Card>
     );
 };
